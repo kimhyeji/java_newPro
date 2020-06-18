@@ -56,6 +56,11 @@ public class ArticleService {
 		articleDao.modify(modiNum, newTitle, newBody);
 	}
 
+	// 게시물 삭제
+	public void delete(int delNum) {
+		articleDao.delete(delNum);
+	}
+
 	public void makeBoardIfNotExists(String name, String code) {
 		Board board = articleDao.getBoardByCode(code);
 

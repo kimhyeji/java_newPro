@@ -22,7 +22,7 @@ public class ArticleController extends Controller {
 		} else if (reqeust.getActionName().equals("modify")) {
 			actionModify(reqeust);
 		} else if (reqeust.getActionName().equals("delete")) {
-			//actionDelete(reqeust);
+			actionDelete(reqeust);
 		} else if (reqeust.getActionName().equals("changeBoard")) {
 			actionChangeBoard(reqeust);
 		} else if (reqeust.getActionName().equals("currentBoard")) {
@@ -103,6 +103,22 @@ public class ArticleController extends Controller {
 			return;
 		}
 	}
-	
-	
+
+	// 게시물 삭제
+	private void actionDelete(Request reqeust) {
+		System.out.println("== 게시물 삭제 ==");
+		System.out.println("삭제하실 게시물 번호를 입력해주세요.");
+		System.out.print("> ");
+
+		int delNum = Factory.getScanner().nextInt();
+		Article article = articleService.getArticleByNum(delNum);
+		Factory.getScanner().nextLine();
+		if (article != null) {
+			articleService.delete(delNum);
+		} else {
+			System.out.println("해당 번호의 게시물은 존재하지 않습니다.");
+			return;
+		}
+	}
+
 }

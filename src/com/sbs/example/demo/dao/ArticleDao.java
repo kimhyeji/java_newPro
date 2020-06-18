@@ -151,8 +151,18 @@ public class ArticleDao {
 		sb.append(String.format("title = '%s'", newTitle));
 		sb.append(String.format(", `body` = '%s'", newBody));
 		sb.append(String.format(" WHERE `id` = %d", modiNum));
-		
+
 		dbConnection.update(sb.toString());
+	}
+
+	// 게시물 삭제
+	public void delete(int delNum) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(String.format("DELETE FROM `article` "));
+		sb.append(String.format(" WHERE `id` = %d", delNum));
+
+		dbConnection.insert(sb.toString());
 	}
 
 }
