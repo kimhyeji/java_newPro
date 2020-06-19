@@ -35,5 +35,10 @@ public class Board extends Dto {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s) %s 게시판", getCode(), name);
+	}
 
 }

@@ -42,9 +42,10 @@ public class MemberDao {
 
 		if (memberRow.isEmpty()) {
 			return null;
+		} else {
+			return new Member(memberRow);	
 		}
-
-		return new Member(memberRow);
+		
 	}
 
 	public Member getMember(int id) {

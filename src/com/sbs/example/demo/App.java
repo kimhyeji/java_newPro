@@ -30,8 +30,8 @@ public class App {
 
 		// DB 정보세팅
 		DBConnection.DB_NAME = "site8";
-		DBConnection.DB_USER = "root";
-		DBConnection.DB_PASSWORD = "hj1234";
+		DBConnection.DB_USER = "sbsst";
+		DBConnection.DB_PASSWORD = "sbs123414";
 		DBConnection.DB_PORT = 3306;
 
 		Factory.getDBConnection().connect();
@@ -47,7 +47,7 @@ public class App {
 		// 현재 게시판을 1번 게시판으로 선택
 		Factory.getSession().setCurrentBoard(Factory.getArticleService().getBoard(1));
 		// 임시 : 현재 로그인 된 회원은 1번 회원으로 지정, 이건 나중에 회원가입, 로그인 추가되면 제거해야함
-		Factory.getSession().setLoginedMember(Factory.getMemberService().getMember(1));
+		// Factory.getSession().setLoginedMember(Factory.getMemberService().getMember(1));
 	}
 
 	public void start() {

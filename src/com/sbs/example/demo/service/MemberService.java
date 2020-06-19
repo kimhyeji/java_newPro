@@ -25,6 +25,15 @@ public class MemberService {
 		Member member = new Member(loginId, loginPw, name);
 		return memberDao.save(member);
 	}
+	
+	public Member getMemberByLoginId(String loginId) {
+		Member member = memberDao.getMemberByLoginId(loginId);
+		if(member == null) {
+			return null;
+		}
+		
+		return member;
+	}
 
 	public Member getMember(int id) {
 		return memberDao.getMember(id);

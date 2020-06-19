@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.sbs.example.demo.db.DBConnection;
 import com.sbs.example.demo.dto.Article;
+import com.sbs.example.demo.dto.ArticleReply;
 import com.sbs.example.demo.dto.Board;
 import com.sbs.example.demo.factory.Factory;
 
@@ -39,14 +40,21 @@ public class ArticleDao {
 	}
 
 	// num에 해당하는 게시물 가져오기
-	public Article getArticleByNum(int num) {
-		String sql = "";
-		sql += "SELECT * FROM article WHERE ID = " + num + ";";
+	public Article getArticle(int id) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(String.format("SELECT * "));
+		sb.append(String.format("FROM `article` "));
+		sb.append(String.format("WHERE id = '%d' ", id));
+
+		String sql = sb.toString();
 		Map<String, Object> row = dbConnection.selectRow(sql);
 
-		Article article = new Article(row);
+		if (row.isEmpty()) {
+			return null;
+		}
 
-		return article;
+		return new Article(row);
 	}
 
 	public List<Board> getBoards() {
@@ -67,6 +75,7 @@ public class ArticleDao {
 		return boards;
 	}
 
+	// 게시판 변경
 	public Board getBoardByCode(String code) {
 		StringBuilder sb = new StringBuilder();
 
@@ -163,6 +172,39 @@ public class ArticleDao {
 		sb.append(String.format(" WHERE `id` = %d", delNum));
 
 		dbConnection.insert(sb.toString());
+	}
+
+	// 댓글
+	public void reply(int articleId, int memberId, String replyText) {
+//		StringBuilder sb = new StringBuilder();
+//		
+//		sb.append(String.format("INSERT INTO article "));
+//		sb.append(String.format("SET regDate = '%s' ", dto.getRegDate()));
+//		sb.append(String.format(", `title` = '%s' ", article.getTitle()));
+//		sb.append(String.format(", `body` = '%s' ", article.getBody()));
+//		sb.append(String.format(", `memberId` = '%d' ", article.getMemberId()));
+//		sb.append(String.format(", `boardId` = '%d' ", article.getBoardId()));
+//
+//		return dbConnection.insert(sb.toString());
+	}
+	
+	
+	public List<ArticleReply> getArticleRepliesByArticleId(int articleId) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(String.format("SELECT * "));
+		sb.append(String.format("FROM `articleReply` "));
+		sb.append(String.format("WHERE articleId = '%d' ", articleId));
+		sb.append(String.format("ORDER BY id DESC "));
+
+		List<ArticleReply> articleReplies = new ArrayList<>();
+		List<Map<String, Object>> rows = dbConnection.selectRows(sb.toString());
+
+		for (Map<String, Object> row : rows) {
+			articleReplies.add(new ArticleReply(row));
+		}
+
+		return articleReplies;
 	}
 
 }
