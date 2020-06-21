@@ -95,8 +95,8 @@ public class ArticleService {
 		return articleDao.getForPrintArticleRepliesByArticleId(articleId);
 	}
 
-	public ArticleReply getArticleReply(int modiNum) {
-		return articleDao.getArticleReply(modiNum);
+	public ArticleReply getArticleReply(int id) {
+		return articleDao.getArticleReply(id);
 	}
 
 	// 댓글 작성

@@ -58,24 +58,6 @@ public class ArticleDao {
 		return new Article(row);
 	}
 
-	// 번호에 해당하는 게시물 가져오기
-	public ArticleReply getArticleReply(int modiNum) {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append(String.format("SELECT * "));
-		sb.append(String.format("FROM `articleReply` "));
-		sb.append(String.format("WHERE id = '%d' ", modiNum));
-
-		String sql = sb.toString();
-		Map<String, Object> row = dbConnection.selectRow(sql);
-
-		if (row.isEmpty()) {
-			return null;
-		}
-
-		return new ArticleReply(row);
-	}
-
 	public Article getForPrintArticle(int id) {
 		StringBuilder sb = new StringBuilder();
 
@@ -272,6 +254,24 @@ public class ArticleDao {
 		}
 
 		return articleReplies;
+	}
+
+	// 번호에 해당하는 댓글 가져오기
+	public ArticleReply getArticleReply(int id) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(String.format("SELECT * "));
+		sb.append(String.format("FROM `articleReply` "));
+		sb.append(String.format("WHERE id = '%d' ", id));
+
+		String sql = sb.toString();
+		Map<String, Object> row = dbConnection.selectRow(sql);
+
+		if (row.isEmpty()) {
+			return null;
+		}
+
+		return new ArticleReply(row);
 	}
 
 	// 댓글 작성
