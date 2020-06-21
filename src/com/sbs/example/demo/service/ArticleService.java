@@ -20,6 +20,10 @@ public class ArticleService {
 		return articleDao.getArticle(id);
 	}
 
+	public Article getForPrintArticle(int id) {
+		return articleDao.getForPrintArticle(id);
+	}
+
 	public List<Article> getArticlesByBoardCode(String code) {
 		return articleDao.getArticlesByBoardCode(code);
 	}
@@ -42,7 +46,7 @@ public class ArticleService {
 	public Board getBoard(int id) {
 		return articleDao.getBoard(id);
 	}
-	
+
 	public void makeBoardIfNotExists(String name, String code) {
 		Board board = articleDao.getBoardByCode(code);
 
@@ -78,13 +82,36 @@ public class ArticleService {
 	}
 
 	// 댓글
-	public void reply(int articleId, int memberId, String replyText) {
-		articleDao.reply(articleId, memberId, replyText);
-	}
-	
-	// 댓글
+	// ---------------------------------------------------------------------------
 	public List<ArticleReply> getArticleRepliesByArticleId(int id) {
 		return articleDao.getArticleRepliesByArticleId(id);
 	}
 
+	public List<Article> getForPrintArticlesByBoardCode(String code) {
+		return articleDao.getForPrintArticlesByBoardCode(code);
+	}
+
+	public List<ArticleReply> getForPrintArticleRepliesByArticleId(int articleId) {
+		return articleDao.getForPrintArticleRepliesByArticleId(articleId);
+	}
+
+	public ArticleReply getArticleReply(int modiNum) {
+		return articleDao.getArticleReply(modiNum);
+	}
+
+	// 댓글 작성
+	public int reply(int articleId, int memberId, String replyText) {
+		ArticleReply articleReply = new ArticleReply(articleId, memberId, replyText);
+		return articleDao.reply(articleReply);
+	}
+
+	// 댓글 삭제
+	public void replyDelete(int delNum) {
+		articleDao.replyDelete(delNum);
+	}
+
+	// 댓글 수정
+	public void replyModify(int modiNum, String replyText) {
+		articleDao.replyModify(modiNum, replyText);
+	}
 }

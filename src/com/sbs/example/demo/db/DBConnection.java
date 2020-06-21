@@ -20,15 +20,19 @@ public class DBConnection {
 	public static int DB_PORT;
 
 	public void connect() {
-		String url = "jdbc:mysql://localhost:" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
+		String url = "jdbc:mysql://localhost:" + DB_PORT + "/" + DB_NAME
+				+ "?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
 		String user = DB_USER;
 		String password = DB_PASSWORD;
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		try {
 			connection = DriverManager.getConnection(url, user, password);
+			Class.forName(driverName);
 		} catch (SQLException e) {
 			System.err.printf("[SQL 예외] : %s\n", e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.err.printf("[드라이버 클래스 로딩 예외] : %s\n", e.getMessage());
 		}
 	}
 
@@ -51,10 +55,9 @@ public class DBConnection {
 
 		return "";
 	}
-	
+
 	public Boolean selectRowBooleanValue(String sql) {
 		Map<String, Object> row = selectRow(sql);
-		System.out.println(row);
 
 		for (String key : row.keySet()) {
 			if (row.get(key) instanceof String) {
@@ -111,6 +114,7 @@ public class DBConnection {
 			}
 		} catch (SQLException e) {
 			System.err.printf("[SQL 예외, SQL : %s] : %s\n", sql, e.getMessage());
+			e.printStackTrace();
 		}
 
 		return rows;
