@@ -145,18 +145,25 @@ public class ArticleController extends Controller {
 
 	// 댓글 삭제
 	private void replyDelete(int id) {
-		System.out.println("몇번 삭제을 수정하시겠습니까?");
+		System.out.println("몇번 댓글을 삭제하시겠습니까?");
 		System.out.print("> ");
 		int delNum = Factory.getScanner().nextInt();
 		Factory.getScanner().nextLine();
 		
 		ArticleReply articleReply = articleService.getArticleReply(delNum);
+		
+		if(articleReply == null) {
+			System.out.println("해당 번호의 댓글이 존재하지 않습니다.");
+			return;
+		}
+		
 		int memberId = Factory.getSession().getLoginedMember().getId();
 
 		if (memberId != articleReply.getMemberId()) {
 			System.out.println("댓글 삭제는 본인만 가능합니다.");
 			return;
 		}
+		
 		
 		articleService.replyDelete(id);
 		System.out.println("댓글 삭제가 완료되었습니다.");
@@ -170,6 +177,12 @@ public class ArticleController extends Controller {
 		Factory.getScanner().nextLine();
 		
 		ArticleReply articleReply = articleService.getArticleReply(modiNum);
+		
+		if(articleReply == null) {
+			System.out.println("해당 번호의 댓글이 존재하지 않습니다.");
+			return;
+		}
+		
 		int memberId = Factory.getSession().getLoginedMember().getId();
 
 		if (memberId != articleReply.getMemberId()) {
