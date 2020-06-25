@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS site8;
 CREATE DATABASE site8;
 USE site8;
 
@@ -35,3 +36,9 @@ CREATE TABLE `articleReply` (
     INDEX articleId (`articleId`)
 );
 
+SELECT * FROM article;
+SELECT * FROM `member`;
+SELECT * FROM board;
+SELECT * FROM articleReply;
+
+TRUNCATE article;
